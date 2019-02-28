@@ -33,14 +33,29 @@ class GenerosController extends \Phalcon\Mvc\Controller
     }
 
     public function addAction($id_genero)
-    {
+    {		
     	if($this->request->isPost()) {
     		$option = new Videojuegos();
     		$option->videojuego = $this->request->getPost('videojuego');
     		$option->plataforma = $this->request->getPost('plataforma');
-    		$option->sinopsis = $this->request->getPost('sinopsis');
-    		//$option->caratula = $this->request->getPost('caratula');
-    		//$option->trailer = $this->request->getPost('trailer');
+				$option->sinopsis = $this->request->getPost('sinopsis');				
+				
+				//Comprueba si hay archivos por subir
+				if ($this->request->hasFiles() == true) 
+				{
+						// Print the real file names and sizes
+						foreach ($this->request->getUploadedFiles() as $caratula) {
+
+								//Print file details
+								//echo $caratula->getName(), " ", $caratula->getSize(), "\n";
+								$option->caratula = "img/".$caratula->getName();
+
+								//guardamos dentro del directorio img
+								$caratula->moveTo('img/' . $caratula->getName());
+						}
+				}				
+
+    		$option->trailer = $this->request->getPost('trailer');
     		$option->precio_unitario = $this->request->getPost('precio');
     		$option->existencias = $this->request->getPost('existencias');
     		$option->categoria = $this->request->getPost('categoria');

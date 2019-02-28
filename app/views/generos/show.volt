@@ -20,9 +20,5 @@
 </table>
 
 
-<button class="button">
-	{{ link_to('generos/add/' ~ genero.id, 'Agregar') }}
-</button>
-<button class="button">
-	{{ link_to('generos/', 'Atrás') }}
-</button>
+	{{ link_to('generos/add/' ~ genero.id, 'Agregar', 'class': 'btn btn-success') }}
+	{{ link_to('generos/', 'Atrás', 'class': 'btn btn-warning') }}
